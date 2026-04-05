@@ -21,25 +21,27 @@ export interface PublicationDetails {
   publishedDate: string;
 }
 
-export async function getPreprintDetails(
+async function fetchCollection(
+  endpoint: string,
   doi: string,
-): Promise<PreprintDetails | null> {
-  const url = `${BASE}/details/biorxiv/${doi}/na/json`;
-
-  let data: unknown;
+): Promise<Record<string, string>[] | null> {
+  const url = `${BASE}/${endpoint}/biorxiv/${doi}/na/json`;
   try {
     const res = await fetch(url);
     if (!res.ok) return null;
-    data = await res.json();
+    const data = await res.json();
+    const collection = data.collection as Record<string, string>[] | undefined;
+    return collection?.length ? collection : null;
   } catch {
     return null;
   }
+}
 
-  const collection = (data as Record<string, unknown>).collection as
-    | Record<string, string>[]
-    | undefined;
-
-  if (!collection || collection.length === 0) return null;
+export async function getPreprintDetails(
+  doi: string,
+): Promise<PreprintDetails | null> {
+  const collection = await fetchCollection("details", doi);
+  if (!collection) return null;
 
   // Use the latest version (last entry in the collection).
   const latest = collection[collection.length - 1];
@@ -58,22 +60,8 @@ export async function getPreprintDetails(
 export async function getPublicationDetails(
   doi: string,
 ): Promise<PublicationDetails | null> {
-  const url = `${BASE}/pubs/biorxiv/${doi}/na/json`;
-
-  let data: unknown;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    data = await res.json();
-  } catch {
-    return null;
-  }
-
-  const collection = (data as Record<string, unknown>).collection as
-    | Record<string, string>[]
-    | undefined;
-
-  if (!collection || collection.length === 0) return null;
+  const collection = await fetchCollection("pubs", doi);
+  if (!collection) return null;
 
   const entry = collection[0];
   const publishedDoi = entry.published_doi ?? entry.pub_doi ?? "";

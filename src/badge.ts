@@ -35,7 +35,6 @@ export function makePreprintBadge(meta?: PreprintMeta): BadgeJson {
     label: "bioRxiv",
     message,
     color: BIORXIV_RED,
-
   };
 }
 
@@ -50,7 +49,6 @@ export function makePublishedBadge(meta: PublishedMeta): BadgeJson {
     label: "bioRxiv",
     message,
     color: PUBLISHED_GREEN,
-
   };
 }
 
@@ -61,7 +59,6 @@ export function makeErrorBadge(message = "not found"): BadgeJson {
     message,
     color: "red",
     isError: true,
-
   };
 }
 

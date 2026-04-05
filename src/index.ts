@@ -11,4 +11,4 @@ export {
   type PreprintDetails,
   type PublicationDetails,
 } from "./biorxiv.js";
-export { generateBadge, buildMarkdownSnippet } from "./generate.js";
+export { generateBadge, buildMarkdownSnippet, detectPagesBase } from "./generate.js";

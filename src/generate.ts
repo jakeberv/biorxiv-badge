@@ -3,15 +3,15 @@
  */
 
 import { writeFile, mkdir } from "node:fs/promises";
+import { execSync } from "node:child_process";
 import { join, dirname } from "node:path";
 import { normalizeDoi, doiToSlug } from "./filenames.js";
 import { makePreprintBadge, makePublishedBadge, makeErrorBadge, type BadgeJson } from "./badge.js";
 import { getPreprintDetails, getPublicationDetails } from "./biorxiv.js";
 
 /** Attempt to infer the GitHub Pages base URL from the git remote. */
-async function detectPagesBase(): Promise<string | null> {
+export function detectPagesBase(): string | null {
   try {
-    const { execSync } = await import("node:child_process");
     const remote = execSync("git remote get-url origin", { encoding: "utf-8" }).trim();
     // Match github.com/<owner>/<repo> from HTTPS or SSH URLs
     const match = remote.match(/github\.com[/:]([\w.-]+)\/([\w.-]+?)(?:\.git)?$/);
@@ -47,9 +47,6 @@ export async function generateBadge(
   outDir = "docs/badges",
   pagesBase?: string,
 ): Promise<GenerateResult> {
-  if (!pagesBase) {
-    pagesBase = (await detectPagesBase()) ?? undefined;
-  }
   const doi = normalizeDoi(rawDoi);
   const slug = doiToSlug(doi);
   const filePath = join(outDir, `${slug}.json`);
@@ -60,7 +57,7 @@ export async function generateBadge(
   let badge: BadgeJson;
 
   if (!preprint) {
-    badge = makeErrorBadge("not found");
+    badge = makeErrorBadge();
   } else {
     const publication = await getPublicationDetails(doi);
     if (publication) {

@@ -8,7 +8,7 @@
  */
 
 import { readFile } from "node:fs/promises";
-import { generateBadge } from "./generate.js";
+import { generateBadge, detectPagesBase } from "./generate.js";
 
 async function main() {
   const args = process.argv.slice(2);
@@ -40,10 +40,12 @@ async function main() {
     process.exit(1);
   }
 
+  const pagesBase = baseUrl ?? detectPagesBase() ?? undefined;
+
   for (const doi of dois) {
     console.log(`\nProcessing: ${doi}`);
     try {
-      const result = await generateBadge(doi, undefined, baseUrl);
+      const result = await generateBadge(doi, undefined, pagesBase);
       console.log(`  Badge:    ${result.badge.message} (${result.badge.color})`);
       console.log(`  File:     ${result.filePath}`);
       console.log(`  Markdown: ${result.markdown}`);
