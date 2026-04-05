@@ -22,8 +22,11 @@ There's no built-in [Shields.io](https://shields.io) badge for bioRxiv preprints
 
 ## Quick start
 
+1. **Fork** this repo on GitHub.
+2. **Enable GitHub Pages** on your fork: go to **Settings > Pages**, set source to **Deploy from a branch**, branch `main`, folder `/docs`.
+3. Clone your fork and generate badges:
+
 ```bash
-# Fork the repo on GitHub, then clone your fork
 git clone https://github.com/<you>/biorxiv-badge.git
 cd biorxiv-badge
 npm install
@@ -31,6 +34,8 @@ npm install
 # Generate a badge for a DOI
 npm run generate -- --doi 10.64898/2025.12.01.691638
 ```
+
+4. Commit and push the generated JSON, and your badge is live.
 
 The CLI auto-detects your GitHub Pages URL from the git remote. You can also set it explicitly:
 
@@ -86,13 +91,6 @@ npm run generate -- --file dois.txt
    ```
 3. The JSON is saved to `docs/badges/` which is served via GitHub Pages.
 4. Shields.io fetches the JSON and renders the badge dynamically.
-
-## GitHub Pages setup
-
-1. Push the repo to GitHub.
-2. Go to **Settings > Pages**.
-3. Set the source to **Deploy from a branch**, branch `main`, folder `/docs`.
-4. Your badge JSON will be served at `https://<you>.github.io/biorxiv-badge/badges/<slug>.json`.
 
 ## Automation
 
