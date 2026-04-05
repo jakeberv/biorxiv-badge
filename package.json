@@ -1,0 +1,29 @@
+{
+  "name": "biorxiv-badge",
+  "version": "1.0.0",
+  "description": "Generate reusable GitHub README badges for bioRxiv preprints",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "generate": "tsx src/cli.ts",
+    "generate-samples": "tsx scripts/generate-samples.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "biorxiv",
+    "badge",
+    "shields",
+    "preprint",
+    "github",
+    "readme"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0",
+    "vitest": "^3.1.0"
+  }
+}
