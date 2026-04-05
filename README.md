@@ -23,31 +23,30 @@ There's no built-in [Shields.io](https://shields.io) badge for bioRxiv preprints
 ## Quick start
 
 1. **Fork** this repo on GitHub.
-2. **Enable GitHub Pages** on your fork: go to **Settings > Pages**, set source to **Deploy from a branch**, branch `main`, folder `/docs`.
-3. Clone your fork and generate badges:
+2. **Enable GitHub Pages** on your fork: go to **Settings > Pages**, set source to **GitHub Actions**.
+3. **Edit `dois.txt`** — add your DOIs, one per line.
+4. **Push** — CI generates the badge JSON and deploys to Pages automatically.
+
+The badge URL for your fork is:
+
+```
+https://img.shields.io/endpoint?url=https%3A%2F%2F<you>.github.io%2Fbiorxiv-badge%2Fbadges%2F<slug>.json
+```
+
+where `<slug>` is the DOI with `/` replaced by `__` (e.g., `10.1101__2023.07.30.551115`).
+
+### Local generation
+
+You can also generate badges locally:
 
 ```bash
 git clone https://github.com/<you>/biorxiv-badge.git
 cd biorxiv-badge
 npm install
-
-# Generate a badge for a DOI
-npm run generate -- --doi 10.64898/2025.12.01.691638
+npm run generate -- --doi 10.1101/2023.07.30.551115
 ```
 
-4. Commit and push the generated JSON, and your badge is live.
-
-The CLI auto-detects your GitHub Pages URL from the git remote. You can also set it explicitly:
-
-```bash
-npm run generate -- --base-url https://<you>.github.io/biorxiv-badge --doi 10.64898/2025.12.01.691638
-```
-
-This creates a JSON file in `docs/badges/` and prints a Markdown snippet you can paste into any README:
-
-```markdown
-[![bioRxiv](https://img.shields.io/endpoint?url=https%3A%2F%2F<you>.github.io%2Fbiorxiv-badge%2Fbadges%2F10.64898__2025.12.01.691638.json)](https://doi.org/10.64898/2025.12.01.691638)
-```
+The CLI auto-detects your GitHub Pages URL from the git remote. You can also set it explicitly with `--base-url`.
 
 ## Usage
 
@@ -98,7 +97,7 @@ A GitHub Actions workflow (`.github/workflows/build-pages.yml`) runs:
 - On every push to `main`
 - Nightly at 06:00 UTC
 
-It regenerates badges for the sample DOIs in `scripts/generate-samples.ts`, keeping publication status up to date automatically.
+It regenerates badges for all DOIs listed in `dois.txt`, keeping publication status up to date automatically.
 
 ## Fallback: static badge
 

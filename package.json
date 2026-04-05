@@ -7,7 +7,6 @@
   "scripts": {
     "build": "tsc",
     "generate": "tsx src/cli.ts",
-    "generate-samples": "tsx scripts/generate-samples.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
