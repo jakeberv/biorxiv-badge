@@ -12,7 +12,7 @@ The badge updates automatically — when this preprint is published in a journal
 
 ## Why
 
-There's no built-in [Shields.io](https://shields.io) badge for bioRxiv preprints. This project fills the gap using Shields **endpoint badges** — a JSON file hosted on GitHub Pages that Shields renders as a badge. The badge includes the bioRxiv logo and automatically reflects whether a preprint has been published:
+There's no built-in [Shields.io](https://shields.io) badge for bioRxiv preprints. This project fills the gap using Shields **endpoint badges** — a JSON file hosted on GitHub Pages that Shields renders as a badge. The badge automatically reflects whether a preprint has been published:
 
 | State     | Badge                                                                                    |
 | --------- | ---------------------------------------------------------------------------------------- |
