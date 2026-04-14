@@ -1,5 +1,3 @@
 # List DOIs to generate badges for, one per line.
 # Lines starting with # are ignored.
-10.64898/2025.12.01.691638
-10.1101/2023.07.30.551115
-10.64898/2026.03.02.709122
+10.64898/2026.04.12.718036
